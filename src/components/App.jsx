@@ -1,12 +1,23 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { AppWrapper, TitleApp, TitleContacts } from './app.styled';
-import { selectContatcs } from 'redux/selectors';
+import { selectContatcs, selectError, selectIsLoading } from 'redux/selectors';
+import { useEffect } from 'react';
+import { getContactsThunk } from 'redux/thunks';
+import { Loader } from './Loader/Loader';
 
 export const App = () => {
   const contacts = useSelector(selectContatcs);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getContactsThunk());
+  }, [dispatch]);
 
   const countTotalContacts = () => {
     return contacts.length;
@@ -28,6 +39,7 @@ export const App = () => {
           <ContactList />
         </>
       )}
+      {isLoading && !error && <Loader />}
     </AppWrapper>
   );
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
   AddContactBtn,
   ContactFormLabel,
@@ -7,17 +7,13 @@ import {
 } from './contactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContatcs } from 'redux/selectors';
-import { addContactThunk, getContactsThunk } from 'redux/thunks';
+import { addContactThunk } from 'redux/thunks';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const contacts = useSelector(selectContatcs);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getContactsThunk());
-  }, [dispatch]);
 
   const handleChangeValue = e => {
     const { name, value } = e.target;

@@ -17,9 +17,11 @@ export const ContactList = () => {
 
   return (
     <ListStyled>
-      {filteredContacts.map((contact, index) => {
-        return <ContactListItem {...contact} key={contact.id} index={index} />;
-      })}
+      {filteredContacts
+        .map(contact => {
+          return <ContactListItem {...contact} key={contact.id} />;
+        })
+        .reverse()}
     </ListStyled>
   );
 };

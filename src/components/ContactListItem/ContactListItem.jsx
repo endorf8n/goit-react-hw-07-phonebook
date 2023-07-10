@@ -3,11 +3,11 @@ import { ContactItemStyled, DeleteBtnStyled } from './contactListItem.styled';
 import { useDispatch } from 'react-redux';
 import { deleteContactThunk } from 'redux/thunks';
 
-export const ContactListItem = ({ id, name, phone, index }) => {
+export const ContactListItem = ({ id, name, phone }) => {
   const dispatch = useDispatch();
   return (
     <ContactItemStyled>
-      {index + 1}. {name}: {phone}
+      - {name}: {phone}
       <DeleteBtnStyled
         type="button"
         onClick={() => dispatch(deleteContactThunk(id))}
@@ -20,7 +20,6 @@ export const ContactListItem = ({ id, name, phone, index }) => {
 
 ContactListItem.propTypes = {
   id: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   phone: PropTypes.string.isRequired,
 };
